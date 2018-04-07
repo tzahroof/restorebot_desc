@@ -1,0 +1,8 @@
+prefix=/home/tariq/catkin_ws/src/restorebot_desc/build/devel
+
+Name: restorebot_desc
+Description: Description of restorebot_desc
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/tariq/catkin_ws/src/restorebot_desc/build/devel/lib 
+Requires: 

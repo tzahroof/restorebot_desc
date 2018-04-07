@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: restorebot_desc
+Description: Description of restorebot_desc
+Version: 0.0.0
+Cflags: 
+Libs: -L/usr/local/lib 
+Requires: 

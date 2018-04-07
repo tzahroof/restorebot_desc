@@ -1,0 +1,455 @@
+<?xml version="1.0"?>
+<robot name="restorebot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+	<xacro:property name="AlDensity" value="2712" />
+
+	<xacro:property name="platLen" value="2" />
+	<xacro:property name="platWidth" value="2" />
+	<xacro:property name="platHeight" value="1" />
+	<xacro:property name="box_mass" value="${AlDensity*platLen*platWidth*platHeight}" />
+	<xacro:macro name="default_box_inertia" params="mass">
+		<inertial>
+			<mass value="${mass}" />
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+		</inertial>
+	</xacro:macro>
+
+	<xacro:property name="cylRad" value="0.2" />
+	<xacro:property name="cylLen" value = "0.8" />
+	<xacro:property name="cyl_mass" value = "2" />
+	<xacro:macro name="default_cyl_inertia" params="mass">
+		<inertial>
+			<mass value="${mass}" />
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+		</inertial>
+	</xacro:macro>
+				
+
+	<material name="blue">
+	<color rgba="0 0 0.8 1"/>
+	</material>
+
+	<material name="black">
+	<color rgba="0 0 0 1"/>
+	</material>
+
+	<material name="white">
+	<color rgba="1 1 1 1"/>
+	</material>
+
+	<link name="Platform_base">
+
+		<xacro:macro name="platform_geom">
+			<geometry>
+				<box size="${platLen} ${platWidth} ${platHeight}" />
+			</geometry>
+		</xacro:macro>
+
+		<visual>
+			<xacro:platform_geom />
+		</visual>
+		<collision>
+			<xacro:platform_geom />
+		</collision>
+		<xacro:default_box_inertia mass ="${box_mass}" />
+	</link>
+
+	<link name="armLink1">
+
+		<xacro:macro name="armLink1_geom">
+			<geometry>
+				<cylinder length="${armLink1Len}" radius="${armLink1Rad}"/>
+			</geometry>
+		</xacro:macro>
+
+		<xacro:macro name="armLink1_offset">
+			<origin rpy = "0 0 0" xyz="0 0 ${armLink1Len/2}" />
+		</xacro:macro>
+
+		<xacro:property name="armLink1Rad" value="${cylRad}" />
+		<xacro:property name="armLink1Len" value = "${cylLen/4}" />
+		<xacro:property name="armLink1Mass" value = 
+				"${AlDensity*3.14*armLink1Len*armLink1Rad^2}" />
+		<visual>
+			<xacro:armLink1_geom />
+			<xacro:armLink1_offset />
+		</visual>
+		<collision>
+			<xacro:armLink1_geom />
+			<xacro:armLink1_offset />
+		</collision>
+		<inertial>
+			<mass value="${armLink1Mass}" />
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+		</inertial>
+	</link>
+
+	<joint name="base_to_link1" type ="continuous">
+		<parent link="platform_base"/>
+		<child link="armLink1"/>
+		<origin rpy = "0 0 0" xyz="0 0 ${platHeight/2}" />
+		<axis xyz = "0 0 1" />
+	</joint>
+
+	<link name="armLink1square">
+		
+		<xacro:property name="armLink1squareLen" value="${armLink1Rad}" />
+		<xacro:property name="armLink1squareMass" value="${AlDensity*armLink1squareLen^3}" />
+		
+		<xacro:macro name="armLink1square_geom">
+			<geometry>
+				<box size="${armLink1squareLen} ${armLink1squareLen} ${armLink1squareLen}"/>
+			</geometry>
+		</xacro:macro>
+
+		<xacro:macro name="armLink1square_offset">
+			<origin rpy = "0 0 0" xyz="0 0 ${armLink1squareLen/2}" />
+		</xacro:macro>
+
+		<visual>
+			<xacro:armLink1square_geom />
+			<xacro:armLink1square_offset />
+		</visual>
+		<collision>
+			<xacro:armLink1square_geom />
+			<xacro:armLink1square_offset />
+		</collision>
+		<inertial>
+			<mass value="${armLink1squareMass}" />
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+		</inertial>
+	</link>	
+
+	<joint name="armLink1Fixed" type ="fixed">
+		<parent link="armLink1"/>
+		<child link="armLink1square"/>
+		<origin rpy = "0 0 0" xyz="0 0 ${armLink1Len}" />
+	</joint>
+
+	<link name="armLink2">
+		
+		<xacro:property name="armLink2Len" value="${armLink1squareLen}" />
+		<xacro:property name="armLink2Mass" value="${AlDensity*armLink2Len^3}" />
+		
+		<xacro:macro name="armLink2_geom">
+			<geometry>
+				<box size="${armLink2Len} ${armLink2Len} ${armLink2Len}"/>
+			</geometry>
+		</xacro:macro>
+
+		<xacro:macro name="armLink2_offset">
+			<origin rpy = "0 0 0" xyz="0 0 0" />
+		</xacro:macro>
+
+		<visual>
+			<xacro:armLink2_geom />
+			<xacro:armLink2_offset />
+		</visual>
+		<collision>
+			<xacro:armLink2_geom />
+			<xacro:armLink2_offset />
+		</collision>
+		<inertial>
+			<mass value="${armLink2Mass}" />
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+		</inertial>
+	</link>	
+	
+	<joint name="armLink1_to_armLink2" type ="continuous">
+		<parent link="armLink1square"/>
+		<child link="armLink2"/>
+		<origin rpy = "0 0 0" xyz="${armLink1squareLen} 0 ${armLink2Len/2}" />
+		<axis xyz = "1 0 0" />
+	</joint>
+
+	<link name="armLink3">
+
+		<xacro:macro name="armLink3_geom">
+			<geometry>
+				<cylinder length="${armLink3Len}" radius="${armLink3Rad}"/>
+			</geometry>
+		</xacro:macro>
+
+		<xacro:macro name="armLink3_offset">
+			<origin rpy = "0 0 0" xyz="0 0 ${armLink3Len/2}" />
+		</xacro:macro>
+
+		<xacro:property name="armLink3Rad" value="${cylRad}" />
+		<xacro:property name="armLink3Len" value = "${cylLen}" />
+		<xacro:property name="armLink3Mass" value = 
+				"${AlDensity*3.14*armLink3Len*armLink3Rad^2}" />
+		<visual>
+			<xacro:armLink3_geom />
+			<xacro:armLink3_offset />
+		</visual>
+		<collision>
+			<xacro:armLink3_geom />
+			<xacro:armLink3_offset />
+		</collision>
+		<inertial>
+			<mass value="${armLink3Mass}" />
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+		</inertial>
+	</link>
+
+	<joint name="armLink2_to_armLink3" type ="continuous">
+		<parent link="armLink2"/>
+		<child link="armLink3"/>
+		<origin rpy = "0 0 0" xyz="0 0 ${armLink2Len/2}" />
+		<axis xyz = "0 0 1" />
+	</joint>
+
+	<link name="armLink3square">
+		
+		<xacro:property name="armLink3squareLen" value="${armLink3Rad}" />
+		<xacro:property name="armLink3squareMass" value="${AlDensity*armLink3squareLen^3}" />
+		
+		<xacro:macro name="armLink3square_geom">
+			<geometry>
+				<box size="${armLink3squareLen} ${armLink3squareLen} ${armLink3squareLen}"/>
+			</geometry>
+		</xacro:macro>
+
+		<xacro:macro name="armLink3square_offset">
+			<origin rpy = "0 0 0" xyz="0 0 ${armLink3squareLen/2}" />
+		</xacro:macro>
+
+		<visual>
+			<xacro:armLink3square_geom />
+			<xacro:armLink3square_offset />
+		</visual>
+		<collision>
+			<xacro:armLink3square_geom />
+			<xacro:armLink3square_offset />
+		</collision>
+		<inertial>
+			<mass value="${armLink3squareMass}" />
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+		</inertial>
+	</link>	
+
+	<joint name="armLink3Fixed" type ="fixed">
+		<parent link="armLink3"/>
+		<child link="armLink3square"/>
+		<origin rpy = "0 0 0" xyz="0 0 ${armLink3Len}" />
+	</joint>
+
+	<link name="armLink4">
+		
+		<xacro:property name="armLink4Len" value="${armLink3squareLen}" />
+		<xacro:property name="armLink4Mass" value="${AlDensity*armLink4Len^3}" />
+		
+		<xacro:macro name="armLink4_geom">
+			<geometry>
+				<box size="${armLink4Len} ${armLink4Len} ${armLink4Len}"/>
+			</geometry>
+		</xacro:macro>
+
+		<xacro:macro name="armLink4_offset">
+			<origin rpy = "0 0 0" xyz="0 0 0" />
+		</xacro:macro>
+
+		<visual>
+			<xacro:armLink4_geom />
+			<xacro:armLink4_offset />
+		</visual>
+		<collision>
+			<xacro:armLink4_geom />
+			<xacro:armLink4_offset />
+		</collision>
+		<inertial>
+			<mass value="${armLink4Mass}" />
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+		</inertial>
+	</link>	
+	
+	<joint name="armLink3_to_armLink4" type ="continuous">
+		<parent link="armLink3square"/>
+		<child link="armLink4"/>
+		<origin rpy = "0 0 0" xyz="${armLink3squareLen} 0 ${armLink4Len/2}" />
+		<axis xyz = "1 0 0" />
+	</joint>
+
+	<link name="armLink5">
+
+		<xacro:macro name="armLink5_geom">
+			<geometry>
+				<cylinder length="${armLink5Len}" radius="${armLink5Rad}"/>
+			</geometry>
+		</xacro:macro>
+
+		<xacro:macro name="armLink5_offset">
+			<origin rpy = "0 0 0" xyz="0 0 ${armLink5Len/2}" />
+		</xacro:macro>
+
+		<xacro:property name="armLink5Rad" value="${cylRad}" />
+		<xacro:property name="armLink5Len" value = "${cylLen}" />
+		<xacro:property name="armLink5Mass" value = 
+				"${AlDensity*3.14*armLink5Len*armLink5Rad^2}" />
+		<visual>
+			<xacro:armLink5_geom />
+			<xacro:armLink5_offset />
+		</visual>
+		<collision>
+			<xacro:armLink5_geom />
+			<xacro:armLink5_offset />
+		</collision>
+		<inertial>
+			<mass value="${armLink5Mass}" />
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+		</inertial>
+	</link>
+
+	<joint name="armLink4_to_armLink5" type ="continuous">
+		<parent link="armLink4"/>
+		<child link="armLink5"/>
+		<origin rpy = "0 0 0" xyz="0 0 ${armLink4Len/2}" />
+		<axis xyz = "0 0 1" />
+	</joint>
+
+	<link name="armLink5square">
+		
+		<xacro:property name="armLink5squareLen" value="${armLink5Rad}" />
+		<xacro:property name="armLink5squareMass" value="${AlDensity*armLink5squareLen^3}" />
+		
+		<xacro:macro name="armLink5square_geom">
+			<geometry>
+				<box size="${armLink5squareLen} ${armLink5squareLen} ${armLink5squareLen}"/>
+			</geometry>
+		</xacro:macro>
+
+		<xacro:macro name="armLink5square_offset">
+			<origin rpy = "0 0 0" xyz="0 0 ${armLink5squareLen/2}" />
+		</xacro:macro>
+
+		<visual>
+			<xacro:armLink5square_geom />
+			<xacro:armLink5square_offset />
+		</visual>
+		<collision>
+			<xacro:armLink5square_geom />
+			<xacro:armLink5square_offset />
+		</collision>
+		<inertial>
+			<mass value="${armLink5squareMass}" />
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+		</inertial>
+	</link>	
+
+	<joint name="armLink5Fixed" type ="fixed">
+		<parent link="armLink5"/>
+		<child link="armLink5square"/>
+		<origin rpy = "0 0 0" xyz="0 0 ${armLink5Len}" />
+	</joint>
+
+	<link name="armLink6">
+		
+		<xacro:property name="armLink6Len" value="${armLink5squareLen}" />
+		<xacro:property name="armLink6Mass" value="${AlDensity*armLink6Len^3}" />
+		
+		<xacro:macro name="armLink6_geom">
+			<geometry>
+				<box size="${armLink6Len} ${armLink6Len} ${armLink6Len}"/>
+			</geometry>
+		</xacro:macro>
+
+		<xacro:macro name="armLink6_offset">
+			<origin rpy = "0 0 0" xyz="0 0 0" />
+		</xacro:macro>
+
+		<visual>
+			<xacro:armLink6_geom />
+			<xacro:armLink6_offset />
+		</visual>
+		<collision>
+			<xacro:armLink6_geom />
+			<xacro:armLink6_offset />
+		</collision>
+		<inertial>
+			<mass value="${armLink6Mass}" />
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+		</inertial>
+	</link>	
+	
+	<joint name="armLink5_to_armLink6" type ="continuous">
+		<parent link="armLink5square"/>
+		<child link="armLink6"/>
+		<origin rpy = "0 0 0" xyz="${-1*armLink5squareLen} 0 ${armLink6Len/2}" />
+		<axis xyz = "1 0 0" />
+	</joint>
+
+	<link name="armLink7">
+
+		<xacro:macro name="armLink7_geom">
+			<geometry>
+				<cylinder length="${armLink7Len}" radius="${armLink7Rad}"/>
+			</geometry>
+		</xacro:macro>
+
+		<xacro:macro name="armLink7_offset">
+			<origin rpy = "0 0 0" xyz="0 0 ${armLink7Len/2}" />
+		</xacro:macro>
+
+		<xacro:property name="armLink7Rad" value="${cylRad}" />
+		<xacro:property name="armLink7Len" value = "${armLink1Len}" />
+		<xacro:property name="armLink7Mass" value = 
+				"${AlDensity*3.14*armLink7Len*armLink7Rad^2}" />
+
+		<visual>
+			<xacro:armLink7_geom />
+			<xacro:armLink7_offset />
+		</visual>
+		<collision>
+			<xacro:armLink7_geom />
+			<xacro:armLink7_offset />
+		</collision>
+		<inertial>
+			<mass value="${armLink7Mass}" />
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+		</inertial>
+	</link>
+
+	<joint name="armLink6_to_armLink7" type ="continuous">
+		<parent link="armLink6"/>
+		<child link="armLink7"/>
+		<origin rpy = "0 0 0" xyz="0 0 ${armLink6Len/2}" />
+		<axis xyz = "0 0 1" />
+	</joint>
+
+	<link name="armLink7square">
+		
+		<xacro:property name="armLink7squareLen" value="${armLink7Rad}" />
+		<xacro:property name="armLink7squareMass" value="${AlDensity*armLink7squareLen^3}" />
+		
+		<xacro:macro name="armLink7square_geom">
+			<geometry>
+				<box size="${armLink7squareLen} ${armLink7squareLen} ${armLink7squareLen}"/>
+			</geometry>
+		</xacro:macro>
+
+		<xacro:macro name="armLink7square_offset">
+			<origin rpy = "0 0 0" xyz="0 0 ${armLink7squareLen/2}" />
+		</xacro:macro>
+
+		<visual>
+			<xacro:armLink7square_geom />
+			<xacro:armLink7square_offset />
+		</visual>
+		<collision>
+			<xacro:armLink7square_geom />
+			<xacro:armLink7square_offset />
+		</collision>
+		<inertial>
+			<mass value="${armLink7squareMass}" />
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+		</inertial>
+	</link>	
+
+	<joint name="armLink7Fixed" type ="fixed">
+		<parent link="armLink7"/>
+		<child link="armLink7square"/>
+		<origin rpy = "0 0 0" xyz="0 0 ${armLink7Len}" />
+	</joint>
+
+</robot>
+
