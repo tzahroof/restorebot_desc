@@ -26,18 +26,18 @@
 				
 
 	<material name="blue">
-	<color rgba="0 0 0.8 1"/>
+		<color rgba="0 0 0.8 1"/>
 	</material>
 
 	<material name="black">
-	<color rgba="0 0 0 1"/>
+		<color rgba="0 0 0 1"/>
 	</material>
 
 	<material name="white">
-	<color rgba="1 1 1 1"/>
+			<color rgba="1 1 1 1"/>
 	</material>
 
-	<link name="Platform_base">
+	<link name="platform_base">
 
 		<xacro:macro name="platform_geom">
 			<geometry>
@@ -47,6 +47,7 @@
 
 		<visual>
 			<xacro:platform_geom />
+			<material name = "black"/>
 		</visual>
 		<collision>
 			<xacro:platform_geom />
@@ -73,6 +74,7 @@
 		<visual>
 			<xacro:armLink1_geom />
 			<xacro:armLink1_offset />
+			<material name="white"/>
 		</visual>
 		<collision>
 			<xacro:armLink1_geom />
@@ -80,7 +82,7 @@
 		</collision>
 		<inertial>
 			<mass value="${armLink1Mass}" />
-			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+			<inertia ixx="${armLink1Len^2/3+armLink1Rad^2/4}" ixy="0.0" ixz="0.0" iyy="${armLink1Len^2/3+armLink1Rad^2/4}" iyz="0.0" izz="${armLink1Rad^2/2}" />
 		</inertial>
 	</link>
 
@@ -109,6 +111,7 @@
 		<visual>
 			<xacro:armLink1square_geom />
 			<xacro:armLink1square_offset />
+			<material name="white"/>
 		</visual>
 		<collision>
 			<xacro:armLink1square_geom />
@@ -116,10 +119,10 @@
 		</collision>
 		<inertial>
 			<mass value="${armLink1squareMass}" />
-			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+			<inertia ixx="${armLink1squareLen^2 * 5/12}" ixy="0.0" ixz="0.0" iyy="${armLink1squareLen^2 * 5/12}" iyz="0.0" izz="${armLink1squareLen^2 / 6}" />
 		</inertial>
 	</link>	
-
+s
 	<joint name="armLink1Fixed" type ="fixed">
 		<parent link="armLink1"/>
 		<child link="armLink1square"/>
@@ -144,6 +147,7 @@
 		<visual>
 			<xacro:armLink2_geom />
 			<xacro:armLink2_offset />
+			<material name="blue"/>
 		</visual>
 		<collision>
 			<xacro:armLink2_geom />
@@ -151,7 +155,7 @@
 		</collision>
 		<inertial>
 			<mass value="${armLink2Mass}" />
-			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+			<inertia ixx="${armLink2Len^2 /6}" ixy="0.0" ixz="0.0" iyy="${armLink2Len^2/6}" iyz="0.0" izz="${armLink2Len^2 /6}" />
 		</inertial>
 	</link>	
 	
@@ -181,6 +185,7 @@
 		<visual>
 			<xacro:armLink3_geom />
 			<xacro:armLink3_offset />
+			<material name="white"/>
 		</visual>
 		<collision>
 			<xacro:armLink3_geom />
@@ -188,7 +193,7 @@
 		</collision>
 		<inertial>
 			<mass value="${armLink3Mass}" />
-			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+			<inertia ixx="${armLink3Len^2/3+armLink3Rad^2/4}" ixy="0.0" ixz="0.0" iyy="${armLink3Len^2/3+armLink3Rad^2/4}" iyz="0.0" izz="${armLink3Rad^2/2}" />
 		</inertial>
 	</link>
 
@@ -217,6 +222,7 @@
 		<visual>
 			<xacro:armLink3square_geom />
 			<xacro:armLink3square_offset />
+			<material name="white"/>
 		</visual>
 		<collision>
 			<xacro:armLink3square_geom />
@@ -224,7 +230,7 @@
 		</collision>
 		<inertial>
 			<mass value="${armLink3squareMass}" />
-			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+			<inertia ixx="${armLink3squareLen^2 * 5/12}" ixy="0.0" ixz="0.0" iyy="${armLink3squareLen^2 * 5/12}" iyz="0.0" izz="${armLink3squareLen^2 / 6}" />
 		</inertial>
 	</link>	
 
@@ -252,6 +258,7 @@
 		<visual>
 			<xacro:armLink4_geom />
 			<xacro:armLink4_offset />
+			<material name="blue"/>
 		</visual>
 		<collision>
 			<xacro:armLink4_geom />
@@ -259,7 +266,7 @@
 		</collision>
 		<inertial>
 			<mass value="${armLink4Mass}" />
-			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+			<inertia ixx="${armLink4Len^2 /6}" ixy="0.0" ixz="0.0" iyy="${armLink4Len^2/6}" iyz="0.0" izz="${armLink4Len^2 /6}" />
 		</inertial>
 	</link>	
 	
@@ -289,6 +296,7 @@
 		<visual>
 			<xacro:armLink5_geom />
 			<xacro:armLink5_offset />
+			<material name="white"/>
 		</visual>
 		<collision>
 			<xacro:armLink5_geom />
@@ -296,7 +304,7 @@
 		</collision>
 		<inertial>
 			<mass value="${armLink5Mass}" />
-			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+			<inertia ixx="${armLink5Len^2/3+armLink5Rad^2/4}" ixy="0.0" ixz="0.0" iyy="${armLink5Len^2/3+armLink5Rad^2/4}" iyz="0.0" izz="${armLink5Rad^2/2}" />
 		</inertial>
 	</link>
 
@@ -325,6 +333,7 @@
 		<visual>
 			<xacro:armLink5square_geom />
 			<xacro:armLink5square_offset />
+			<material name="white"/>
 		</visual>
 		<collision>
 			<xacro:armLink5square_geom />
@@ -332,7 +341,7 @@
 		</collision>
 		<inertial>
 			<mass value="${armLink5squareMass}" />
-			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+			<inertia ixx="${armLink5squareLen^2 * 5/12}" ixy="0.0" ixz="0.0" iyy="${armLink5squareLen^2 * 5/12}" iyz="0.0" izz="${armLink5squareLen^2 / 6}" />
 		</inertial>
 	</link>	
 
@@ -360,6 +369,7 @@
 		<visual>
 			<xacro:armLink6_geom />
 			<xacro:armLink6_offset />
+			<material name="blue"/>
 		</visual>
 		<collision>
 			<xacro:armLink6_geom />
@@ -367,7 +377,7 @@
 		</collision>
 		<inertial>
 			<mass value="${armLink6Mass}" />
-			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+			<inertia ixx="${armLink6Len^2 /6}" ixy="0.0" ixz="0.0" iyy="${armLink6Len^2/6}" iyz="0.0" izz="${armLink6Len^2 /6}" />
 		</inertial>
 	</link>	
 	
@@ -398,6 +408,7 @@
 		<visual>
 			<xacro:armLink7_geom />
 			<xacro:armLink7_offset />
+			<material name="white"/>
 		</visual>
 		<collision>
 			<xacro:armLink7_geom />
@@ -405,7 +416,7 @@
 		</collision>
 		<inertial>
 			<mass value="${armLink7Mass}" />
-			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+			<inertia ixx="${armLink7Len^2/3+armLink7Rad^2/4}" ixy="0.0" ixz="0.0" iyy="${armLink7Len^2/3+armLink7Rad^2/4}" iyz="0.0" izz="${armLink7Rad^2/2}" />
 		</inertial>
 	</link>
 
@@ -434,6 +445,7 @@
 		<visual>
 			<xacro:armLink7square_geom />
 			<xacro:armLink7square_offset />
+			<material name="white"/>
 		</visual>
 		<collision>
 			<xacro:armLink7square_geom />
@@ -441,7 +453,7 @@
 		</collision>
 		<inertial>
 			<mass value="${armLink7squareMass}" />
-			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+			<inertia ixx="${armLink7squareLen^2 * 5/12}" ixy="0.0" ixz="0.0" iyy="${armLink7squareLen^2 * 5/12}" iyz="0.0" izz="${armLink7squareLen^2 / 6}" />
 		</inertial>
 	</link>	
 
