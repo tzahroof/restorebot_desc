@@ -3,41 +3,49 @@
 
 	<xacro:property name="AlDensity" value="2712" />
 
-	<xacro:property name="platLen" value="2" />
-	<xacro:property name="platWidth" value="2" />
+	<xacro:property name="platLen" value="8" />
+	<xacro:property name="platWidth" value="8" />
 	<xacro:property name="platHeight" value="1" />
-	<xacro:property name="box_mass" value="${AlDensity*platLen*platWidth*platHeight}" />
-	<xacro:macro name="default_box_inertia" params="mass">
-		<inertial>
-			<mass value="${mass}" />
-			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
-		</inertial>
-	</xacro:macro>
+
+	<xacro:property name="satLen" value="${5}" />
+	<xacro:property name="satWidth" value="${5}" />
+	<xacro:property name="satHeight" value="${5}" />
 
 	<xacro:property name="cylRad" value="0.2" />
 	<xacro:property name="cylLen" value = "0.8" />
-	<xacro:property name="cyl_mass" value = "2" />
-	<xacro:macro name="default_cyl_inertia" params="mass">
-		<inertial>
-			<mass value="${mass}" />
-			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
-		</inertial>
-	</xacro:macro>
-				
 
 	<material name="blue">
 		<color rgba="0 0 0.8 1"/>
 	</material>
 
 	<material name="black">
-		<color rgba="0 0 0 1"/>
+		<color rgba="0 .2 0 1"/>
 	</material>
 
 	<material name="white">
 			<color rgba="1 1 1 1"/>
 	</material>
 
+	<!--	****************
+			****************
+			****************
+
+			Base Platform
+
+			****************
+			****************
+			****************
+	-->
+
 	<link name="platform_base">
+
+		<xacro:property name="box_mass" value="${AlDensity*platLen*platWidth*platHeight}" />
+		<xacro:macro name="default_box_inertia" params="mass">
+			<inertial>
+				<mass value="${mass}" />
+				<inertia ixx="${platHeight^2/12+platWidth^2/12}" ixy="0.0" ixz="0.0" iyy="${platHeight^2/12+platLen^2/12}" iyz="0.0" izz="${platLen^2/12 +platWidth^2/12}" />
+			</inertial>
+		</xacro:macro>
 
 		<xacro:macro name="platform_geom">
 			<geometry>
@@ -54,6 +62,17 @@
 		</collision>
 		<xacro:default_box_inertia mass ="${box_mass}" />
 	</link>
+
+	<!--	****************
+			****************
+			****************
+
+ 				Arm Link 1
+
+			****************
+			****************
+			****************
+	-->
 
 	<link name="armLink1">
 
@@ -89,7 +108,7 @@
 	<joint name="base_to_link1" type ="continuous">
 		<parent link="platform_base"/>
 		<child link="armLink1"/>
-		<origin rpy = "0 0 0" xyz="0 0 ${platHeight/2}" />
+		<origin rpy = "0 0 0" xyz="${platLen/4} 0 ${platHeight/2}" />
 		<axis xyz = "0 0 1" />
 	</joint>
 
@@ -129,6 +148,17 @@ s
 		<origin rpy = "0 0 0" xyz="0 0 ${armLink1Len}" />
 	</joint>
 
+	<!--	****************
+			****************
+			****************
+
+ 				Arm Link 2
+
+			****************
+			****************
+			****************
+	-->
+
 	<link name="armLink2">
 		
 		<xacro:property name="armLink2Len" value="${armLink1squareLen}" />
@@ -165,6 +195,17 @@ s
 		<origin rpy = "0 0 0" xyz="${armLink1squareLen} 0 ${armLink2Len/2}" />
 		<axis xyz = "1 0 0" />
 	</joint>
+
+	<!--	****************
+			****************
+			****************
+
+ 				Arm Link 3
+
+			****************
+			****************
+			****************
+	-->
 
 	<link name="armLink3">
 
@@ -240,6 +281,17 @@ s
 		<origin rpy = "0 0 0" xyz="0 0 ${armLink3Len}" />
 	</joint>
 
+	<!--	****************
+			****************
+			****************
+
+ 				Arm Link 4
+
+			****************
+			****************
+			****************
+	-->
+
 	<link name="armLink4">
 		
 		<xacro:property name="armLink4Len" value="${armLink3squareLen}" />
@@ -276,6 +328,18 @@ s
 		<origin rpy = "0 0 0" xyz="${armLink3squareLen} 0 ${armLink4Len/2}" />
 		<axis xyz = "1 0 0" />
 	</joint>
+
+
+	<!--	****************
+			****************
+			****************
+
+ 				Arm Link 5
+
+			****************
+			****************
+			****************
+	-->
 
 	<link name="armLink5">
 
@@ -351,6 +415,18 @@ s
 		<origin rpy = "0 0 0" xyz="0 0 ${armLink5Len}" />
 	</joint>
 
+	<!--	****************
+			****************
+			****************
+
+ 				Arm Link 6
+
+			****************
+			****************
+			****************
+	-->
+
+
 	<link name="armLink6">
 		
 		<xacro:property name="armLink6Len" value="${armLink5squareLen}" />
@@ -387,6 +463,18 @@ s
 		<origin rpy = "0 0 0" xyz="${-1*armLink5squareLen} 0 ${armLink6Len/2}" />
 		<axis xyz = "1 0 0" />
 	</joint>
+
+	<!--	****************
+			****************
+			****************
+
+ 				Arm Link 7
+
+			****************
+			****************
+			****************
+	-->
+
 
 	<link name="armLink7">
 
@@ -461,6 +549,153 @@ s
 		<parent link="armLink7"/>
 		<child link="armLink7square"/>
 		<origin rpy = "0 0 0" xyz="0 0 ${armLink7Len}" />
+	</joint>
+
+	<!--	****************
+			****************
+			****************
+
+ Beginning of the Satellite/Support Section
+
+			****************
+			****************
+			****************
+	-->
+				
+	<xacro:property name="supArc" value="1" />
+	<xacro:property name="supLen" value=".6" />
+	<xacro:property name="supRad" value=".2" />
+	<xacro:property name="supMass" value = 
+				"${AlDensity*3.14*supLen*supRad^2}" />
+
+	<xacro:macro name="sup_geom">
+		<geometry>
+			<cylinder length="${supLen}" radius="${supRad}"/>
+		</geometry>
+	</xacro:macro>
+
+	<link name = "support1">
+		<xacro:macro name="support1_offset">
+			<origin rpy = "0 0 0" xyz = "0 0 ${supLen/2}" />
+		</xacro:macro>
+
+		<visual>
+			<xacro:sup_geom />
+			<xacro:support1_offset />
+			<material name="black"/>
+		</visual>
+		<collision>
+			<xacro:sup_geom />
+			<xacro:support1_offset />
+		</collision>
+		<inertial>
+			<mass value="${supMass}" />
+			<inertia ixx="${supLen^2/3+supRad^2/4}" ixy="0.0" ixz="0.0" iyy="${supLen^2/3+supRad^2/4}" iyz="0.0" izz="${supRad^2/2}" />
+		</inertial>
+	</link>
+
+	<joint name="base_to_sup1" type ="fixed">
+		<parent link="platform_base"/>
+		<child link="support1"/>
+		<origin rpy = "0 0 0" xyz="${-1*platLen/4} ${-1*supArc} ${platHeight/2}" />
+	</joint>
+
+	<link name = "support2">
+		<xacro:macro name="support2_offset">
+			<origin rpy = "0 0 0" xyz = "0 0 ${supLen/2}" />
+		</xacro:macro>
+
+		<visual>
+			<xacro:sup_geom />
+			<xacro:support1_offset />
+			<material name="black"/>
+		</visual>
+		<collision>
+			<xacro:sup_geom />
+			<xacro:support1_offset />
+		</collision>
+		<inertial>
+			<mass value="${supMass}" />
+			<inertia ixx="${supLen^2/3+supRad^2/4}" ixy="0.0" ixz="0.0" iyy="${supLen^2/3+supRad^2/4}" iyz="0.0" izz="${supRad^2/2}" />
+		</inertial>
+	</link>
+
+	<joint name="base_to_sup2" type ="fixed">
+		<parent link="platform_base"/>
+		<child link="support2"/>
+		<origin rpy = "0 0 0" xyz="${-1*platLen/4+supArc*1.7/2} ${supArc/2} ${platHeight/2}" />
+	</joint>
+
+	<link name = "support3">
+		<xacro:macro name="support3_offset">
+			<origin rpy = "0 0 0" xyz = "0 0 ${supLen/2}" />
+		</xacro:macro>
+
+		<visual>
+			<xacro:sup_geom />
+			<xacro:support1_offset />
+			<material name="black"/>
+		</visual>
+		<collision>
+			<xacro:sup_geom />
+			<xacro:support1_offset />
+		</collision>
+		<inertial>
+			<mass value="${supMass}" />
+			<inertia ixx="${supLen^2/3+supRad^2/4}" ixy="0.0" ixz="0.0" iyy="${supLen^2/3+supRad^2/4}" iyz="0.0" izz="${supRad^2/2}" />
+		</inertial>
+	</link>
+
+	<joint name="base_to_sup3" type ="fixed">
+		<parent link="platform_base"/>
+		<child link="support3"/>
+		<origin rpy = "0 0 0" xyz="${-1*platLen/4-supArc*1.7/2} ${supArc/2} ${platHeight/2}" />
+	</joint>
+
+	<!--	****************
+			****************
+			****************
+
+	 			Satellite
+
+			****************
+			****************
+			****************
+	-->
+
+	<link name="satellite">
+		
+		<xacro:property name="satMass" value="${AlDensity*satLen*satWidth*satHeight}" />
+		
+		<xacro:macro name="sat_geom">
+			<geometry>
+				<box size="${satLen} ${satWidth} ${satHeight}"/>
+			</geometry>
+		</xacro:macro>
+
+		<xacro:macro name="sat_offset">
+			<origin rpy = "0 0 0" xyz="0 0 ${satHeight/2}" />
+		</xacro:macro>
+
+		<visual>
+			<xacro:sat_geom />
+			<xacro:sat_offset />
+			<material name="black"/>
+		</visual>
+		<collision>
+			<xacro:sat_geom />
+			<xacro:sat_offset />
+		</collision>
+		<inertial>
+			<mass value="${satMass}" />
+			<inertia ixx="${satHeight^2/3+satWidth^2/12}" ixy="0.0" ixz="0.0" iyy="${satHeight^2/3+satLen^2/12}" iyz="0.0" izz="${satLen^2/12 +satWidth^2/12}" />
+		</inertial>
+	</link>	
+
+	<joint name="sup1_to_satellite" type ="fixed">
+		<parent link="support1"/>
+		<child link="satellite"/>
+		<origin rpy = "0 0 0" xyz="${0} ${supArc} ${supLen}" />
 	</joint>
 
 </robot>
