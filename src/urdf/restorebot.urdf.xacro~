@@ -68,7 +68,7 @@
 		</xacro:macro>
 
 		<xacro:property name="armLink1Rad" value="${cylRad}" />
-		<xacro:property name="armLink1Len" value = "${cylLen/4}" />
+		<xacro:property name="armLink1Len" value = "${cylLen/2}" />
 		<xacro:property name="armLink1Mass" value = 
 				"${AlDensity*3.14*armLink1Len*armLink1Rad^2}" />
 		<visual>
@@ -95,7 +95,7 @@
 
 	<link name="armLink1square">
 		
-		<xacro:property name="armLink1squareLen" value="${armLink1Rad}" />
+		<xacro:property name="armLink1squareLen" value="${armLink1Rad*2.2}" />
 		<xacro:property name="armLink1squareMass" value="${AlDensity*armLink1squareLen^3}" />
 		
 		<xacro:macro name="armLink1square_geom">
@@ -206,7 +206,7 @@ s
 
 	<link name="armLink3square">
 		
-		<xacro:property name="armLink3squareLen" value="${armLink3Rad}" />
+		<xacro:property name="armLink3squareLen" value="${armLink3Rad*2.2}" />
 		<xacro:property name="armLink3squareMass" value="${AlDensity*armLink3squareLen^3}" />
 		
 		<xacro:macro name="armLink3square_geom">
@@ -317,7 +317,7 @@ s
 
 	<link name="armLink5square">
 		
-		<xacro:property name="armLink5squareLen" value="${armLink5Rad}" />
+		<xacro:property name="armLink5squareLen" value="${armLink5Rad*2.2}" />
 		<xacro:property name="armLink5squareMass" value="${AlDensity*armLink5squareLen^3}" />
 		
 		<xacro:macro name="armLink5square_geom">
