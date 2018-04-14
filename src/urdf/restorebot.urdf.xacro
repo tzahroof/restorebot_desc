@@ -43,7 +43,7 @@
 		<xacro:macro name="default_box_inertia" params="mass">
 			<inertial>
 				<mass value="${mass}" />
-				<inertia ixx="${platHeight^2/12+platWidth^2/12}" ixy="0.0" ixz="0.0" iyy="${platHeight^2/12+platLen^2/12}" iyz="0.0" izz="${platLen^2/12 +platWidth^2/12}" />
+				<inertia ixx="${platHeight*platHeight/12+platWidth*platWidth/12}" ixy="0.0" ixz="0.0" iyy="${platHeight*platHeight/12+platLen*platLen/12}" iyz="0.0" izz="${platLen*platLen/12 +platWidth*platWidth/12}" />
 			</inertial>
 		</xacro:macro>
 
@@ -89,7 +89,7 @@
 		<xacro:property name="armLink1Rad" value="${cylRad}" />
 		<xacro:property name="armLink1Len" value = "${cylLen/2}" />
 		<xacro:property name="armLink1Mass" value = 
-				"${AlDensity*3.14*armLink1Len*armLink1Rad^2}" />
+				"${AlDensity*3.14*armLink1Len*armLink1Rad*armLink1Rad}" />
 		<visual>
 			<xacro:armLink1_geom />
 			<xacro:armLink1_offset />
@@ -101,7 +101,7 @@
 		</collision>
 		<inertial>
 			<mass value="${armLink1Mass}" />
-			<inertia ixx="${armLink1Len^2/3+armLink1Rad^2/4}" ixy="0.0" ixz="0.0" iyy="${armLink1Len^2/3+armLink1Rad^2/4}" iyz="0.0" izz="${armLink1Rad^2/2}" />
+			<inertia ixx="${armLink1Len*armLink1Len/3+armLink1Rad*armLink1Rad/4}" ixy="0.0" ixz="0.0" iyy="${armLink1Len*armLink1Len/3+armLink1Rad*armLink1Rad/4}" iyz="0.0" izz="${armLink1Rad*armLink1Rad/2}" />
 		</inertial>
 	</link>
 
@@ -115,7 +115,7 @@
 	<link name="armLink1square">
 		
 		<xacro:property name="armLink1squareLen" value="${armLink1Rad*2.2}" />
-		<xacro:property name="armLink1squareMass" value="${AlDensity*armLink1squareLen^3}" />
+		<xacro:property name="armLink1squareMass" value="${AlDensity*armLink1squareLen*armLink1squareLen*armLink1squareLen}" />
 		
 		<xacro:macro name="armLink1square_geom">
 			<geometry>
@@ -138,7 +138,7 @@
 		</collision>
 		<inertial>
 			<mass value="${armLink1squareMass}" />
-			<inertia ixx="${armLink1squareLen^2 * 5/12}" ixy="0.0" ixz="0.0" iyy="${armLink1squareLen^2 * 5/12}" iyz="0.0" izz="${armLink1squareLen^2 / 6}" />
+			<inertia ixx="${armLink1squareLen*armLink1squareLen * 5/12}" ixy="0.0" ixz="0.0" iyy="${armLink1squareLen*armLink1squareLen * 5/12}" iyz="0.0" izz="${armLink1squareLen*armLink1squareLen / 6}" />
 		</inertial>
 	</link>	
 s
@@ -162,7 +162,7 @@ s
 	<link name="armLink2">
 		
 		<xacro:property name="armLink2Len" value="${armLink1squareLen}" />
-		<xacro:property name="armLink2Mass" value="${AlDensity*armLink2Len^3}" />
+		<xacro:property name="armLink2Mass" value="${AlDensity*armLink2Len*armLink2Len*armLink2Len}" />
 		
 		<xacro:macro name="armLink2_geom">
 			<geometry>
@@ -185,7 +185,7 @@ s
 		</collision>
 		<inertial>
 			<mass value="${armLink2Mass}" />
-			<inertia ixx="${armLink2Len^2 /6}" ixy="0.0" ixz="0.0" iyy="${armLink2Len^2/6}" iyz="0.0" izz="${armLink2Len^2 /6}" />
+			<inertia ixx="${armLink2Len*armLink2Len /6}" ixy="0.0" ixz="0.0" iyy="${armLink2Len*armLink2Len/6}" iyz="0.0" izz="${armLink2Len*armLink2Len /6}" />
 		</inertial>
 	</link>	
 	
@@ -222,7 +222,7 @@ s
 		<xacro:property name="armLink3Rad" value="${cylRad}" />
 		<xacro:property name="armLink3Len" value = "${cylLen}" />
 		<xacro:property name="armLink3Mass" value = 
-				"${AlDensity*3.14*armLink3Len*armLink3Rad^2}" />
+				"${AlDensity*3.14*armLink3Len*armLink3Rad*armLink3Rad}" />
 		<visual>
 			<xacro:armLink3_geom />
 			<xacro:armLink3_offset />
@@ -234,7 +234,7 @@ s
 		</collision>
 		<inertial>
 			<mass value="${armLink3Mass}" />
-			<inertia ixx="${armLink3Len^2/3+armLink3Rad^2/4}" ixy="0.0" ixz="0.0" iyy="${armLink3Len^2/3+armLink3Rad^2/4}" iyz="0.0" izz="${armLink3Rad^2/2}" />
+			<inertia ixx="${armLink3Len*armLink3Len/3+armLink3Rad*armLink3Rad/4}" ixy="0.0" ixz="0.0" iyy="${armLink3Len*armLink3Len/3+armLink3Rad*armLink3Rad/4}" iyz="0.0" izz="${armLink3Rad*armLink3Rad/2}" />
 		</inertial>
 	</link>
 
@@ -248,7 +248,7 @@ s
 	<link name="armLink3square">
 		
 		<xacro:property name="armLink3squareLen" value="${armLink3Rad*2.2}" />
-		<xacro:property name="armLink3squareMass" value="${AlDensity*armLink3squareLen^3}" />
+		<xacro:property name="armLink3squareMass" value="${AlDensity*armLink3squareLen*armLink3squareLen*armLink3squareLen}" />
 		
 		<xacro:macro name="armLink3square_geom">
 			<geometry>
@@ -271,7 +271,7 @@ s
 		</collision>
 		<inertial>
 			<mass value="${armLink3squareMass}" />
-			<inertia ixx="${armLink3squareLen^2 * 5/12}" ixy="0.0" ixz="0.0" iyy="${armLink3squareLen^2 * 5/12}" iyz="0.0" izz="${armLink3squareLen^2 / 6}" />
+			<inertia ixx="${armLink3squareLen*armLink3squareLen * 5/12}" ixy="0.0" ixz="0.0" iyy="${armLink3squareLen*armLink3squareLen * 5/12}" iyz="0.0" izz="${armLink3squareLen*armLink3squareLen / 6}" />
 		</inertial>
 	</link>	
 
@@ -295,7 +295,7 @@ s
 	<link name="armLink4">
 		
 		<xacro:property name="armLink4Len" value="${armLink3squareLen}" />
-		<xacro:property name="armLink4Mass" value="${AlDensity*armLink4Len^3}" />
+		<xacro:property name="armLink4Mass" value="${AlDensity*armLink4Len*armLink4Len*armLink4Len}" />
 		
 		<xacro:macro name="armLink4_geom">
 			<geometry>
@@ -318,7 +318,7 @@ s
 		</collision>
 		<inertial>
 			<mass value="${armLink4Mass}" />
-			<inertia ixx="${armLink4Len^2 /6}" ixy="0.0" ixz="0.0" iyy="${armLink4Len^2/6}" iyz="0.0" izz="${armLink4Len^2 /6}" />
+			<inertia ixx="${armLink4Len*armLink4Len /6}" ixy="0.0" ixz="0.0" iyy="${armLink4Len*armLink4Len/6}" iyz="0.0" izz="${armLink4Len*armLink4Len /6}" />
 		</inertial>
 	</link>	
 	
@@ -356,7 +356,7 @@ s
 		<xacro:property name="armLink5Rad" value="${cylRad}" />
 		<xacro:property name="armLink5Len" value = "${cylLen}" />
 		<xacro:property name="armLink5Mass" value = 
-				"${AlDensity*3.14*armLink5Len*armLink5Rad^2}" />
+				"${AlDensity*3.14*armLink5Len*armLink5Rad*armLink5Rad}" />
 		<visual>
 			<xacro:armLink5_geom />
 			<xacro:armLink5_offset />
@@ -368,7 +368,7 @@ s
 		</collision>
 		<inertial>
 			<mass value="${armLink5Mass}" />
-			<inertia ixx="${armLink5Len^2/3+armLink5Rad^2/4}" ixy="0.0" ixz="0.0" iyy="${armLink5Len^2/3+armLink5Rad^2/4}" iyz="0.0" izz="${armLink5Rad^2/2}" />
+			<inertia ixx="${armLink5Len*armLink5Len/3+armLink5Rad*armLink5Rad/4}" ixy="0.0" ixz="0.0" iyy="${armLink5Len*armLink5Len/3+armLink5Rad*armLink5Rad/4}" iyz="0.0" izz="${armLink5Rad*armLink5Rad/2}" />
 		</inertial>
 	</link>
 
@@ -382,7 +382,7 @@ s
 	<link name="armLink5square">
 		
 		<xacro:property name="armLink5squareLen" value="${armLink5Rad*2.2}" />
-		<xacro:property name="armLink5squareMass" value="${AlDensity*armLink5squareLen^3}" />
+		<xacro:property name="armLink5squareMass" value="${AlDensity*armLink5squareLen*armLink5squareLen*armLink5squareLen}" />
 		
 		<xacro:macro name="armLink5square_geom">
 			<geometry>
@@ -405,7 +405,7 @@ s
 		</collision>
 		<inertial>
 			<mass value="${armLink5squareMass}" />
-			<inertia ixx="${armLink5squareLen^2 * 5/12}" ixy="0.0" ixz="0.0" iyy="${armLink5squareLen^2 * 5/12}" iyz="0.0" izz="${armLink5squareLen^2 / 6}" />
+			<inertia ixx="${armLink5squareLen*armLink5squareLen * 5/12}" ixy="0.0" ixz="0.0" iyy="${armLink5squareLen*armLink5squareLen * 5/12}" iyz="0.0" izz="${armLink5squareLen*armLink5squareLen / 6}" />
 		</inertial>
 	</link>	
 
@@ -430,7 +430,7 @@ s
 	<link name="armLink6">
 		
 		<xacro:property name="armLink6Len" value="${armLink5squareLen}" />
-		<xacro:property name="armLink6Mass" value="${AlDensity*armLink6Len^3}" />
+		<xacro:property name="armLink6Mass" value="${AlDensity*armLink6Len*armLink6Len*armLink6Len}" />
 		
 		<xacro:macro name="armLink6_geom">
 			<geometry>
@@ -453,7 +453,7 @@ s
 		</collision>
 		<inertial>
 			<mass value="${armLink6Mass}" />
-			<inertia ixx="${armLink6Len^2 /6}" ixy="0.0" ixz="0.0" iyy="${armLink6Len^2/6}" iyz="0.0" izz="${armLink6Len^2 /6}" />
+			<inertia ixx="${armLink6Len*armLink6Len /6}" ixy="0.0" ixz="0.0" iyy="${armLink6Len*armLink6Len/6}" iyz="0.0" izz="${armLink6Len*armLink6Len /6}" />
 		</inertial>
 	</link>	
 	
@@ -491,7 +491,7 @@ s
 		<xacro:property name="armLink7Rad" value="${cylRad}" />
 		<xacro:property name="armLink7Len" value = "${armLink1Len}" />
 		<xacro:property name="armLink7Mass" value = 
-				"${AlDensity*3.14*armLink7Len*armLink7Rad^2}" />
+				"${AlDensity*3.14*armLink7Len*armLink7Rad*armLink7Rad}" />
 
 		<visual>
 			<xacro:armLink7_geom />
@@ -504,7 +504,7 @@ s
 		</collision>
 		<inertial>
 			<mass value="${armLink7Mass}" />
-			<inertia ixx="${armLink7Len^2/3+armLink7Rad^2/4}" ixy="0.0" ixz="0.0" iyy="${armLink7Len^2/3+armLink7Rad^2/4}" iyz="0.0" izz="${armLink7Rad^2/2}" />
+			<inertia ixx="${armLink7Len*armLink7Len/3+armLink7Rad*armLink7Rad/4}" ixy="0.0" ixz="0.0" iyy="${armLink7Len*armLink7Len/3+armLink7Rad*armLink7Rad/4}" iyz="0.0" izz="${armLink7Rad*armLink7Rad/2}" />
 		</inertial>
 	</link>
 
@@ -518,7 +518,7 @@ s
 	<link name="armLink7square">
 		
 		<xacro:property name="armLink7squareLen" value="${armLink7Rad}" />
-		<xacro:property name="armLink7squareMass" value="${AlDensity*armLink7squareLen^3}" />
+		<xacro:property name="armLink7squareMass" value="${AlDensity*armLink7squareLen*armLink7squareLen*armLink7squareLen}" />
 		
 		<xacro:macro name="armLink7square_geom">
 			<geometry>
@@ -541,7 +541,7 @@ s
 		</collision>
 		<inertial>
 			<mass value="${armLink7squareMass}" />
-			<inertia ixx="${armLink7squareLen^2 * 5/12}" ixy="0.0" ixz="0.0" iyy="${armLink7squareLen^2 * 5/12}" iyz="0.0" izz="${armLink7squareLen^2 / 6}" />
+			<inertia ixx="${armLink7squareLen*armLink7squareLen * 5/12}" ixy="0.0" ixz="0.0" iyy="${armLink7squareLen*armLink7squareLen * 5/12}" iyz="0.0" izz="${armLink7squareLen*armLink7squareLen / 6}" />
 		</inertial>
 	</link>	
 
@@ -566,13 +566,21 @@ s
 	<xacro:property name="supLen" value=".6" />
 	<xacro:property name="supRad" value=".2" />
 	<xacro:property name="supMass" value = 
-				"${AlDensity*3.14*supLen*supRad^2}" />
+				"${AlDensity*3.14*supLen*supRad*supRad}" />
 
 	<xacro:macro name="sup_geom">
 		<geometry>
 			<cylinder length="${supLen}" radius="${supRad}"/>
 		</geometry>
 	</xacro:macro>
+
+	<xacro:macro name="sup_inertia">
+		<inertial>
+			<mass value="${supMass}" />
+			<inertia ixx="${supLen*supLen/3+supRad*supRad/4}" ixy="0.0" ixz="0.0" iyy="${supLen*supLen/3+supRad*supRad/4}" iyz="0.0" izz="${supRad*supRad/2}" />
+		</inertial>
+	</xacro:macro>
+			
 
 	<link name = "support1">
 		<xacro:macro name="support1_offset">
@@ -588,10 +596,7 @@ s
 			<xacro:sup_geom />
 			<xacro:support1_offset />
 		</collision>
-		<inertial>
-			<mass value="${supMass}" />
-			<inertia ixx="${supLen^2/3+supRad^2/4}" ixy="0.0" ixz="0.0" iyy="${supLen^2/3+supRad^2/4}" iyz="0.0" izz="${supRad^2/2}" />
-		</inertial>
+		<xacro:sup_inertia />
 	</link>
 
 	<joint name="base_to_sup1" type ="fixed">
@@ -614,10 +619,7 @@ s
 			<xacro:sup_geom />
 			<xacro:support1_offset />
 		</collision>
-		<inertial>
-			<mass value="${supMass}" />
-			<inertia ixx="${supLen^2/3+supRad^2/4}" ixy="0.0" ixz="0.0" iyy="${supLen^2/3+supRad^2/4}" iyz="0.0" izz="${supRad^2/2}" />
-		</inertial>
+		<xacro:sup_inertia />
 	</link>
 
 	<joint name="base_to_sup2" type ="fixed">
@@ -640,10 +642,7 @@ s
 			<xacro:sup_geom />
 			<xacro:support1_offset />
 		</collision>
-		<inertial>
-			<mass value="${supMass}" />
-			<inertia ixx="${supLen^2/3+supRad^2/4}" ixy="0.0" ixz="0.0" iyy="${supLen^2/3+supRad^2/4}" iyz="0.0" izz="${supRad^2/2}" />
-		</inertial>
+		<xacro:sup_inertia />
 	</link>
 
 	<joint name="base_to_sup3" type ="fixed">
@@ -688,8 +687,8 @@ s
 		</collision>
 		<inertial>
 			<mass value="${satMass}" />
-			<inertia ixx="${satHeight^2/3+satWidth^2/12}" ixy="0.0" ixz="0.0" iyy="${satHeight^2/3+satLen^2/12}" iyz="0.0" izz="${satLen^2/12 +satWidth^2/12}" />
-		</inertial>
+			<inertia ixx="${satHeight*satHeight/3+satWidth*satWidth/12}" ixy="0.0" ixz="0.0" iyy="${satHeight*satHeight/3+satLen*satLen/12}" iyz="0.0" izz="${satLen*satLen/12 +satWidth*satWidth/12}" />
+</inertial>
 	</link>	
 
 	<joint name="sup1_to_satellite" type ="fixed">
@@ -697,6 +696,6 @@ s
 		<child link="satellite"/>
 		<origin rpy = "0 0 0" xyz="${0} ${supArc} ${supLen}" />
 	</joint>
-
+n
 </robot>
 
