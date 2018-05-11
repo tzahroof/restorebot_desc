@@ -23,8 +23,14 @@
 	</material>
 
 	<material name="white">
-			<color rgba="1 1 1 1"/>
+		<color rgba="1 1 1 1"/>
 	</material>
+
+	<material name="cyan">
+		<color rgba="0 1 1 1"/>
+	</material>
+
+
 
 	<!--	****************
 			****************
@@ -108,7 +114,7 @@
 	<joint name="base_to_link1" type ="continuous">
 		<parent link="platform_base"/>
 		<child link="armLink1"/>
-		<origin rpy = "0 0 0" xyz="${platLen/4} 0 ${platHeight/2}" />
+		<origin rpy = "0 0 0" xyz="${platLen/4} ${platWidth/4} ${platHeight/2}" />
 		<axis xyz = "0 0 1" />
 	</joint>
 
@@ -563,7 +569,7 @@ s
 	-->
 				
 	<xacro:property name="supArc" value="1" />
-	<xacro:property name="supLen" value=".6" />
+	<xacro:property name="supLen" value="1.5" />
 	<xacro:property name="supRad" value=".2" />
 	<xacro:property name="supMass" value = 
 				"${AlDensity*3.14*supLen*supRad*supRad}" />
@@ -687,8 +693,8 @@ s
 		</collision>
 		<inertial>
 			<mass value="${satMass}" />
-			<inertia ixx="${satHeight*satHeight/3+satWidth*satWidth/12}" ixy="0.0" ixz="0.0" iyy="${satHeight*satHeight/3+satLen*satLen/12}" iyz="0.0" izz="${satLen*satLen/12 +satWidth*satWidth/12}" />
-</inertial>
+			<inertia ixx="${satHeight*satHeight/3+satWidth*satWidth/12}" ixy="0.0" ixz="0.0" iyy="${satHeight*satHeight/3+satLen*satLen/12}" iyz="0.0" izz="${satLen*satLen/+satWidth*satWidth/12}" />
+		</inertial>
 	</link>	
 
 	<joint name="sup1_to_satellite" type ="fixed">
@@ -696,6 +702,77 @@ s
 		<child link="satellite"/>
 		<origin rpy = "0 0 0" xyz="${0} ${supArc} ${supLen}" />
 	</joint>
-n
+
+
+	<!--	****************
+			****************
+			****************
+
+	 		  Clutter
+
+			****************
+			****************
+			****************
+	-->
+
+	<link name="clutter1">
+		<xacro:property name="c1Mass" value="${AlDensity*c1Rad*c1Rad*c1Rad}" />
+		<xacro:property name="c1Rad" value=".3" />
+		
+		<xacro:macro name="c1_geom">
+			<geometry>
+				<sphere radius="${c1Rad}"/>
+			</geometry>
+		</xacro:macro>
+
+
+		<visual>
+			<xacro:c1_geom />
+			<material name="cyan"/>
+		</visual>
+		<collision>
+			<xacro:c1_geom />
+		</collision>
+		<inertial>
+			<mass value="${c1Mass}" />
+			<inertia ixx="${2/5*c1Rad*c1Rad}" ixy="0.0" ixz="0.0" iyy="${2/5*c1Rad*c1Rad}" iyz="0.0" izz="${2/5*c1Rad*c1Rad}" />
+		</inertial>
+	</link>
+
+	<joint name="platform_to_clutter1" type="fixed">
+		<parent link="platform_base"/>
+		<child link="clutter1"/>
+		<origin rpy = "0 0 0" xyz = "${2} ${2} ${platHeight+2}" />
+	</joint>
+
+	<link name="clutter2">
+		<xacro:property name="c2Mass" value="${AlDensity*c2Rad*c2Rad*c2Rad}" />
+		<xacro:property name="c2Rad" value=".2" />
+		
+		<xacro:macro name="c2_geom">
+			<geometry>
+				<sphere radius="${c2Rad}"/>
+			</geometry>
+		</xacro:macro>
+
+
+		<visual>
+			<xacro:c2_geom />
+			<material name="cyan"/>
+		</visual>
+		<collision>
+			<xacro:c2_geom />
+		</collision>
+		<inertial>
+			<mass value="${c2Mass}" />
+			<inertia ixx="${2/5*c2Rad*c2Rad}" ixy="0.0" ixz="0.0" iyy="${2/5*c2Rad*c2Rad}" iyz="0.0" izz="${2/5*c2Rad*c2Rad}" />
+		</inertial>
+	</link>
+
+	<joint name="platform_to_clutter2" type="fixed">
+		<parent link="platform_base"/>
+		<child link="clutter2"/>
+		<origin rpy = "0 0 0" xyz = "${1.5} ${0} ${platHeight+1}" />
+	</joint>
 </robot>
 
