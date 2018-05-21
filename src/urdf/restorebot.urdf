@@ -13,8 +13,8 @@
   <material name="white">
     <color rgba="1 1 1 1"/>
   </material>
-  <material name="purple">
-    <color rgba="1 0 1 0"/>
+  <material name="cyan">
+    <color rgba="0 1 1 1"/>
   </material>
   <!--	****************
 			****************
@@ -518,7 +518,7 @@ s
       <geometry>
         <sphere radius="0.3"/>
       </geometry>
-      <material name="purple"/>
+      <material name="cyan"/>
     </visual>
     <collision>
       <geometry>
@@ -540,7 +540,7 @@ s
       <geometry>
         <sphere radius="0.2"/>
       </geometry>
-      <material name="purple"/>
+      <material name="cyan"/>
     </visual>
     <collision>
       <geometry>
