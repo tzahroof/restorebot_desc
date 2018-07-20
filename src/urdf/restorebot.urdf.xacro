@@ -111,11 +111,12 @@
 		</inertial>
 	</link>
 
-	<joint name="base_to_link1" type ="continuous">
+	<joint name="base_to_link1" type ="revolute">
 		<parent link="platform_base"/>
 		<child link="armLink1"/>
 		<origin rpy = "0 0 0" xyz="${platLen/4} ${platWidth/4} ${platHeight/2}" />
 		<axis xyz = "0 0 1" />
+		<limit effort="100" lower="-3.14" upper="3.14" velocity="3"/>
 	</joint>
 
 	<link name="armLink1square">
@@ -195,11 +196,12 @@ s
 		</inertial>
 	</link>	
 	
-	<joint name="armLink1_to_armLink2" type ="continuous">
+	<joint name="armLink1_to_armLink2" type ="revolute">
 		<parent link="armLink1square"/>
 		<child link="armLink2"/>
 		<origin rpy = "0 0 0" xyz="${armLink1squareLen} 0 ${armLink2Len/2}" />
 		<axis xyz = "1 0 0" />
+		<limit effort="100" lower="-3.14" upper="3.14" velocity="3"/>
 	</joint>
 
 	<!--	****************
@@ -244,11 +246,12 @@ s
 		</inertial>
 	</link>
 
-	<joint name="armLink2_to_armLink3" type ="continuous">
+	<joint name="armLink2_to_armLink3" type ="revolute">
 		<parent link="armLink2"/>
 		<child link="armLink3"/>
 		<origin rpy = "0 0 0" xyz="0 0 ${armLink2Len/2}" />
 		<axis xyz = "0 0 1" />
+		<limit effort="100" lower="-3.14" upper="3.14" velocity="3"/>
 	</joint>
 
 	<link name="armLink3square">
@@ -328,11 +331,12 @@ s
 		</inertial>
 	</link>	
 	
-	<joint name="armLink3_to_armLink4" type ="continuous">
+	<joint name="armLink3_to_armLink4" type ="revolute">
 		<parent link="armLink3square"/>
 		<child link="armLink4"/>
 		<origin rpy = "0 0 0" xyz="${armLink3squareLen} 0 ${armLink4Len/2}" />
 		<axis xyz = "1 0 0" />
+		<limit effort="100" lower="-3.14" upper="3.14" velocity="3"/>
 	</joint>
 
 
@@ -378,11 +382,12 @@ s
 		</inertial>
 	</link>
 
-	<joint name="armLink4_to_armLink5" type ="continuous">
+	<joint name="armLink4_to_armLink5" type ="revolute">
 		<parent link="armLink4"/>
 		<child link="armLink5"/>
 		<origin rpy = "0 0 0" xyz="0 0 ${armLink4Len/2}" />
 		<axis xyz = "0 0 1" />
+		<limit effort="100" lower="-3.14" upper="3.14" velocity="3"/>
 	</joint>
 
 	<link name="armLink5square">
@@ -463,11 +468,12 @@ s
 		</inertial>
 	</link>	
 	
-	<joint name="armLink5_to_armLink6" type ="continuous">
+	<joint name="armLink5_to_armLink6" type ="revolute">
 		<parent link="armLink5square"/>
 		<child link="armLink6"/>
 		<origin rpy = "0 0 0" xyz="${-1*armLink5squareLen} 0 ${armLink6Len/2}" />
 		<axis xyz = "1 0 0" />
+		<limit effort="100" lower="-3.14" upper="3.14" velocity="3"/>
 	</joint>
 
 	<!--	****************
@@ -514,11 +520,12 @@ s
 		</inertial>
 	</link>
 
-	<joint name="armLink6_to_armLink7" type ="continuous">
+	<joint name="armLink6_to_armLink7" type ="revolute">
 		<parent link="armLink6"/>
 		<child link="armLink7"/>
 		<origin rpy = "0 0 0" xyz="0 0 ${armLink6Len/2}" />
 		<axis xyz = "0 0 1" />
+		<limit effort="100" lower="-3.14" upper="3.14" velocity="3"/>
 	</joint>
 
 	<link name="armLink7square">
